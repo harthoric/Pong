@@ -253,12 +253,12 @@ void Game::GenerateOutput() {
   			static_cast<int>(mBallPos.y - thickness / 2), thickness, thickness };
   	SDL_RenderFillRect(mRenderer, &ball);
 
-  // draw line
-  	for (int i = 1; i < 17; i++) {
-  		SDL_Rect line { static_cast<int>(1024 / 2),
-  				static_cast<int>(40 * i + 30), thickness / 2, 30 };
-  		SDL_RenderFillRect(mRenderer, &line);
-  	}
+    // draw line
+	for (int i = 1; i < 17; i++) {
+		SDL_Rect line { static_cast<int>(1024 / 2),
+				static_cast<int>(40 * i + 30), thickness / 2, 30 };
+		SDL_RenderFillRect(mRenderer, &line);
+	}
 
 // swap front buffer and back buffer
 	SDL_RenderPresent(mRenderer);
