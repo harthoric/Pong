@@ -235,6 +235,9 @@ void Game::GenerateOutput() {
 
 // clear back buffer
 	SDL_RenderClear(mRenderer);
+	
+	// Draw walls
+	SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
 	// draw top wall
 	SDL_Rect wall { 0, 0, 1024, thickness };
