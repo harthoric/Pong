@@ -181,6 +181,44 @@ void Game::UpdateGame() {
 		mBallVelocity.y *= incrementVelocity;
 		player2Velocity *= incrementVelocity;
 	}
+
+  // did player 2 hit the ball?
+  	else if (diff2 <= paddleHeight / 2.0f && mBallPosition.x >= 1024.0f - 20.0f
+  			&& mBallPosition.x <= 1024.0f && mBallVelocity.x > 0.0f) {
+  		mBallVelocity.x *= -incrementVelocity;
+  		mBallVelocity.y *= incrementVelocity;
+  	}
+
+  	// did the ball go off the screen? (if so, end game)
+  	else if (mBallPosition.x <= 0.0f && scorePlayer1 >= 1) {
+  		mBallVelocity.x /= 2.0f;
+  		mBallVelocity.y /= 2.0f;
+  		p2Velocity /= 2.0f;
+  		scorePlayer2++;
+  		resetBall();
+  	} else if (mBallPos.x >= (1024.0f - thickness) && mBallVelocity.x > 0.0f
+  			&& scorePlayer1 <= 9) {
+  		scorePlayer1++;
+  		resetBall();
+  	} else if ((scorePlayer1 < 1 && mBallPosition.x <= 0.0f) || scorePlayer1 > 9) {
+  		resetBall();
+  	}
+
+    // did the ball collide with the top wall?
+  	if (mBallPosition.y <= thickness && mBallVelocity.y < 0.0f) {
+  		mBallVelocity.y *= -1;
+  	}
+    // did the ball collide with the bottom wall?
+  	else if (mBallPosition.y >= (768 - thickness) && mBallVelocity.y > 0.0f) {
+  		mBallVelocity.y *= -1;
+  	}
+
+}
+
+// reset the ball position to centre
+void Game::resetBall() {
+	mBallPos.x = 1024 / 2;
+	mBallPos.y = 1024 / 2;
 }
 
 void Game::GenerateOutput() {
