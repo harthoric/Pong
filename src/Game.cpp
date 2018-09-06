@@ -219,8 +219,8 @@ void Game::UpdateGame() {
 
 // reset the ball position to centre
 void Game::resetBall() {
-	mBallPos.x = 1024 / 2;
-	mBallPos.y = 1024 / 2;
+	mBallPosition.x = 1024 / 2;
+	mBallPosition.y = 1024 / 2;
 }
 
 void Game::GenerateOutput() {
@@ -239,15 +239,15 @@ void Game::GenerateOutput() {
   	SDL_RenderFillRect(mRenderer, &wall);
 
   // draw player1 paddle
-  	SDL_Rect paddle1 { static_cast<int>(mPaddlePos1.x),
-  			static_cast<int>(mPaddlePos1.y - paddleH / 2), thickness,
-  			static_cast<int>(paddleH) };
+  	SDL_Rect paddle1 { static_cast<int>(mPaddlePosition1.x),
+  			static_cast<int>(mPaddlePosition1.y - paddleHeight / 2), thickness,
+  			static_cast<int>(paddleHeight) };
   	SDL_RenderFillRect(mRenderer, &paddle1);
 
   // draw player2 paddle
-  	SDL_Rect paddle2 { static_cast<int>(mPaddlePos2.x),
-  			static_cast<int>(mPaddlePos2.y - paddleH / 2), thickness,
-  			static_cast<int>(paddleH) };
+  	SDL_Rect paddle2 { static_cast<int>(mPaddlePosition2.x),
+  			static_cast<int>(mPaddlePosition2.y - paddleHeight / 2), thickness,
+  			static_cast<int>(paddleHeight) };
   	SDL_RenderFillRect(mRenderer, &paddle2);
 
   // draw ball
@@ -297,7 +297,7 @@ void Game::GenerateOutput() {
 			rightBottom};
 
 		for (unsigned j = 0; j < dig.size(); j++) {
-			std::list<SDL_Rect>::iterator it = dig[i < 1 ? scoreP1 : scoreP2].begin();
+			std::list<SDL_Rect>::iterator it = dig[i < 1 ? scorePlayer1 : scorePlayer2].begin();
 			std::advance(it, j);
 			SDL_RenderFillRect(mRenderer, &*it);
 		}
