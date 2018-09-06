@@ -228,6 +228,38 @@ void Game::GenerateOutput() {
 // clear back buffer
 	SDL_RenderClear(mRenderer);
 
+  // draw top wall
+  	SDL_Rect wall { 0, 0, 1024, thickness };
+  	SDL_RenderFillRect(mRenderer, &wall);
+
+  // draw bottom wall
+  	wall.y = 768 - thickness;
+  	SDL_RenderFillRect(mRenderer, &wall);
+
+  // draw player1 paddle
+  	SDL_Rect paddle1 { static_cast<int>(mPaddlePos1.x),
+  			static_cast<int>(mPaddlePos1.y - paddleH / 2), thickness,
+  			static_cast<int>(paddleH) };
+  	SDL_RenderFillRect(mRenderer, &paddle1);
+
+  // draw player2 paddle
+  	SDL_Rect paddle2 { static_cast<int>(mPaddlePos2.x),
+  			static_cast<int>(mPaddlePos2.y - paddleH / 2), thickness,
+  			static_cast<int>(paddleH) };
+  	SDL_RenderFillRect(mRenderer, &paddle2);
+
+  // draw ball
+  	SDL_Rect ball { static_cast<int>(mBallPos.x - thickness / 2),
+  			static_cast<int>(mBallPos.y - thickness / 2), thickness, thickness };
+  	SDL_RenderFillRect(mRenderer, &ball);
+
+  // draw line
+  	for (int i = 1; i < 17; i++) {
+  		SDL_Rect line { static_cast<int>(1024 / 2),
+  				static_cast<int>(40 * i + 30), thickness / 2, 30 };
+  		SDL_RenderFillRect(mRenderer, &line);
+  	}
+
 // swap front buffer and back buffer
 	SDL_RenderPresent(mRenderer);
 }
