@@ -51,6 +51,19 @@ bool Game::Initialize() {
 		SDL_Log("Failed to create renderer: %s", SDL_GetError());
 		return false;
 	}
+
+  // initialise paddle 1 position (x, y)
+	mPaddlePosition1.x = 10.0f;
+	mPaddlePosition1.y = 768.0f / 2.0f;
+	// initialise paddle 2 position (x, y)
+	mPaddlePosition2.x = 1024.0f - 30.0f;
+	mPaddlePosition2.y = 768.0f / 2.0f;
+	// initialise ball position (x, y)
+	mBallPosition.x = 1024.0f / 2.0f;
+	mBallPosition.y = 768.0f / 2.0f;
+	// initialise ball velocity (x, y)
+	mBallVelocity.x = -200.0f;
+	mBallVelocity.y = 235.0f;
 	// if all is good, default true
 	return true;
 }
