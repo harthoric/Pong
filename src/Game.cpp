@@ -144,22 +144,42 @@ void Game::UpdateGame() {
 	if (mPaddleDirection1 != 0) {
 		mPaddlePosition1.y += mPaddleDirection1 * 300.0f * deltaTime;
 		// make sure paddle doesn't move off screen!
-		if (mPaddlePosition1.y < (paddleH / 2.0f + thickness)) {
-			mPaddlePosition1.y = paddleH / 2.0f + thickness;
-		} else if (mPaddlePosition1.y > (768.0f - paddleH / 2.0f - thickness)) {
-			mPaddlePosition1.y = 768.0f - paddleH / 2.0f - thickness;
+		if (mPaddlePosition1.y < (paddleHeight / 2.0f + thickness)) {
+			mPaddlePosition1.y = paddleHeight / 2.0f + thickness;
+		} else if (mPaddlePosition1.y > (768.0f - paddleHeight / 2.0f - thickness)) {
+			mPaddlePosition1.y = 768.0f - paddleHeight / 2.0f - thickness;
 		}
 	}
 
   // update paddle 2 position based on direction
-	if (mPaddleDir2 != 0) {
-		mPaddlePos2.y += mPaddleDir2 * 300.0f * deltaTime;
+	if (mPaddleDirection2 != 0) {
+		mPaddlePosition2.y += mPaddleDirection2 * 300.0f * deltaTime;
 		// make sure paddle doesn't move off screen!
-		if (mPaddlePos2.y < (paddleH / 2.0f + thickness)) {
-			mPaddlePos2.y = paddleH / 2.0f + thickness;
-		} else if (mPaddlePos2.y > (768.0f - paddleH / 2.0f - thickness)) {
-			mPaddlePos2.y = 768.0f - paddleH / 2.0f - thickness;
+		if (mPaddlePosition2.y < (paddleHeight / 2.0f + thickness)) {
+			mPaddlePosition2.y = paddleHeight / 2.0f + thickness;
+		} else if (mPaddlePosition2.y > (768.0f - paddleHeight / 2.0f - thickness)) {
+			mPaddlePosition2.y = 768.0f - paddleHeight / 2.0f - thickness;
 		}
+	}
+
+  // update ball position based on ball velocity
+	mBallPosition.x += mBallVelocity.x * deltaTime;
+	mBallPosition.y += mBallVelocity.y * deltaTime;
+
+	// bounce if needed
+	// did we intersect with the paddle?
+	float diff1 = mPaddlePosition1.y - mBallPosition.y;
+	float diff2 = mPaddlePosition2.y - mBallPosition.y;
+	// take absolute value of difference
+	diff1 = (diff1 > 0.0f) ? diff1 : -diff1;
+	diff2 = (diff2 > 0.0f) ? diff2 : -diff2;
+	if ((diff1 <= paddleHeight / 2.0f && mBallPosition.x <= 25.0f && mBallPosition.x >= 20.0f
+			&& mBallVel.x < 0.0f)
+			|| (diff2 <= paddleHeight / 2.0f && mBallPosition.x >= 1024.0f - 45.0f
+					&& mBallPos.x <= 1024.0f - 40.0f && mBallVelocity.x > 0.0f)) {
+		mBallVelocity.x *= -incrementVelocity;
+		mBallVelocity.y *= incrementVelocity;
+		player2Velocity *= incrementVelocity;
 	}
 }
 
