@@ -7,6 +7,8 @@
 
 #include "Game.h"
 #include <iostream>
+#include <list>
+#include <map>
 
 // thickness of paddle
 const int thickness = 15;
