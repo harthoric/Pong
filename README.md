@@ -1,6 +1,4 @@
-<p align="center"> 
-  <h1 align="center"> Pong </h1>
-</p>
+<h1 align="center"> Pong </h1>
 <p align="center"> 
 Simple Pong game written in C++
 </p> 
