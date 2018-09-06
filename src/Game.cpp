@@ -150,6 +150,17 @@ void Game::UpdateGame() {
 			mPaddlePosition1.y = 768.0f - paddleH / 2.0f - thickness;
 		}
 	}
+
+  // update paddle 2 position based on direction
+	if (mPaddleDir2 != 0) {
+		mPaddlePos2.y += mPaddleDir2 * 300.0f * deltaTime;
+		// make sure paddle doesn't move off screen!
+		if (mPaddlePos2.y < (paddleH / 2.0f + thickness)) {
+			mPaddlePos2.y = paddleH / 2.0f + thickness;
+		} else if (mPaddlePos2.y > (768.0f - paddleH / 2.0f - thickness)) {
+			mPaddlePos2.y = 768.0f - paddleH / 2.0f - thickness;
+		}
+	}
 }
 
 void Game::GenerateOutput() {
