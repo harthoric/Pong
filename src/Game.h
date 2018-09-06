@@ -15,7 +15,7 @@ struct Vector2 {
 
 class Game {
 public:
-  Game();
+	Game();
 	// initialises game
 	bool Initialize();
 	// runs game loop until the game has finished
@@ -45,7 +45,7 @@ private:
 	// direction of paddle 2
 	int mPaddleDirection2;
 	// position of paddle 2
-	Vector2 mPaddlePos2;
+	Vector2 mPaddlePosition2;
 
 	// position of ball
 	Vector2 mBallPosition;
