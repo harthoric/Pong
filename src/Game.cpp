@@ -139,6 +139,17 @@ void Game::UpdateGame() {
 
 	// update tick counts (for the next frame)
 	mTicksCount = SDL_GetTicks();
+
+  // update paddle 1 position based on direction
+	if (mPaddleDirection1 != 0) {
+		mPaddlePosition1.y += mPaddleDirection1 * 300.0f * deltaTime;
+		// make sure paddle doesn't move off screen!
+		if (mPaddlePosition1.y < (paddleH / 2.0f + thickness)) {
+			mPaddlePosition1.y = paddleH / 2.0f + thickness;
+		} else if (mPaddlePosition1.y > (768.0f - paddleH / 2.0f - thickness)) {
+			mPaddlePosition1.y = 768.0f - paddleH / 2.0f - thickness;
+		}
+	}
 }
 
 void Game::GenerateOutput() {
