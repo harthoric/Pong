@@ -86,7 +86,7 @@ void Game::ProcessInput() {
 		switch (event.type) {
 		// if we get an SDL_QUIT event, end loop
 		case SDL_QUIT:
-			mIsRunning = false;
+			mIsGameRunning = false;
 			break;
 		}
 	}
@@ -96,7 +96,32 @@ void Game::ProcessInput() {
 	// if escape is pressed
 	if (state[SDL_SCANCODE_ESCAPE])
 		// end game loop
-		mIsRunning = false;
+		mIsGameRunning = false;
+
+    mPaddleDirection1 = 0;
+	// if 'w' is pressed
+	if (state[SDL_SCANCODE_W])
+		// decrement player 1 paddle direction
+		mPaddleDirection1--;
+
+	// if 's' is pressed
+	if (state[SDL_SCANCODE_S])
+		// increment player 1 paddle direction
+		mPaddleDirection1++;
+
+	mPaddleDirection2 = 0;
+
+	// if the ball if closer to player 2's paddle
+	if (mBallPosition.x > 1024.0f - (1024.0f / 2.0f) * paddle2Velocity) {
+		// if the paddle's y position is greater than that of the ball's, and the ball is closer to the right
+		if (mPaddlePosition2.y > mBallPosition.y)
+			// decrement player 2 paddle direction
+			mPaddleDirection2 -= paddle2Velocity;
+		// if the paddle's y position is less than that of the ball's, and the ball if closer to the right
+		if (mPaddlePosition2.y < mBallPosition.y)
+			// increment player 2 paddle direction
+			mPaddleDirection2 += paddle2Velocity;
+	}
 }
 
 void Game::UpdateGame() {
