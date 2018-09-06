@@ -260,6 +260,47 @@ void Game::GenerateOutput() {
 		SDL_RenderFillRect(mRenderer, &line);
 	}
 
+  for (int i = 0; i < 2; i++) {
+		// since I can't manage to get ttf working, I'm resorting to using the eight rectangle classic
+		SDL_Rect leftTop { static_cast<int>(i < 1 ? 245 + i * 10 : 645 + i * 120), static_cast<int>(55),
+				thickness / 3, thickness };
+		SDL_Rect top { static_cast<int>(i < 1 ? 250 + i * 10 : 650 + i * 120), static_cast<int>(50), thickness,
+				thickness / 3 };
+		SDL_Rect rightTop { static_cast<int>(i < 1 ? 265 + i * 10 : 665 + i * 120), static_cast<int>(55),
+				thickness / 3, thickness };
+		SDL_Rect middle { static_cast<int>(i < 1 ? 250 + i * 10 : 650 + i * 120), static_cast<int>(70),
+				thickness, thickness / 3 };
+		SDL_Rect leftBottom { static_cast<int>(i < 1 ? 245 + i * 10 : 645 + i * 120), static_cast<int>(75),
+				thickness / 3, thickness };
+		SDL_Rect bottom { static_cast<int>(i < 1 ? 250 + i * 10 : 650 + i * 120), static_cast<int>(90),
+				thickness, thickness / 3 };
+		SDL_Rect rightBottom { static_cast<int>(i < 1 ? 265 + i * 10 : 665 + i * 120), static_cast<int>(75),
+				thickness / 3, thickness };
+
+		std::map<int, std::list<SDL_Rect>> dig;
+
+		dig[0] = {leftTop, top, rightTop, leftBottom, bottom,
+			rightBottom};
+		dig[1] = {rightTop, rightBottom};
+		dig[2] = {top, rightTop, middle, leftBottom, bottom};
+		dig[3] = {top, rightTop, middle, bottom, rightBottom};
+		dig[4] = {leftTop, rightTop, middle, rightBottom};
+		dig[5] = {leftTop, top, middle, bottom, rightBottom};
+		dig[6] = {leftTop, top, middle, leftBottom, bottom,
+			rightBottom};
+		dig[7] = {top, rightTop, rightBottom};
+		dig[8] = {leftTop, top, rightTop, middle, leftBottom,
+			bottom, rightBottom};
+		dig[9] = {leftTop, top, rightTop, middle, bottom,
+			rightBottom};
+
+		for (unsigned j = 0; j < dig.size(); j++) {
+			std::list<SDL_Rect>::iterator it = dig[i < 1 ? scoreP1 : scoreP2].begin();
+			std::advance(it, j);
+			SDL_RenderFillRect(mRenderer, &*it);
+		}
+	}
+
 // swap front buffer and back buffer
 	SDL_RenderPresent(mRenderer);
 }
