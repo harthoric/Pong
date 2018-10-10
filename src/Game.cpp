@@ -198,9 +198,9 @@ void Game::UpdateGame() {
 
 	// did the ball go off the screen? (if so, end game)
 	else if (mBallPosition.x <= 0.0f && scorePlayer1 >= 1) {
-		mBallVelocity.x /= 2.0f;
-		mBallVelocity.y /= 2.0f;
-		paddle2Velocity /= 2.0f;
+// 		mBallVelocity.x /= 2.0f;
+// 		mBallVelocity.y /= 2.0f;
+// 		paddle2Velocity /= 2.0f;
 		scorePlayer2++;
 		resetBall();
 	} else if (mBallPosition.x >= (1024.0f - thickness)
@@ -273,7 +273,7 @@ void Game::GenerateOutput() {
 	}
 
 	for (int i = 0; i < 2; i++) {
-		// since I can't manage to get ttf working, I'm resorting to using the eight rectangle classic
+		// since I can't manage to get ttf working, I'm resorting to creating the numbers using rectangles
 		SDL_Rect leftTop {
 				static_cast<int>(i < 1 ? 245 + i * 10 : 645 + i * 120),
 				static_cast<int>(55), thickness / 3, thickness };
