@@ -65,8 +65,8 @@ bool Game::Initialize() {
 	mBallPosition.x = 1024.0f / 2.0f;
 	mBallPosition.y = 768.0f / 2.0f;
 	// initialise ball velocity (x, y)
-	mBallVelocity.x = -200.0f;
-	mBallVelocity.y = 235.0f;
+	mBallVelocity.x = -200.0f * 1.22;
+	mBallVelocity.y = 235.0f * 1.22;
 	// if all is good, default true
 	return true;
 }
@@ -178,15 +178,20 @@ void Game::UpdateGame() {
 	// take absolute value of difference
 	diff1 = (diff1 > 0.0f) ? diff1 : -diff1;
 	diff2 = (diff2 > 0.0f) ? diff2 : -diff2;
-	if ((diff1 <= paddleHeight / 2.0f && mBallPosition.x <= 25.0f
+	if ((diff1 <= paddleHeight / 2.0f && mBallPosition.x <= 30.0f
 			&& mBallPosition.x >= 20.0f && mBallVelocity.x < 0.0f)
 			|| (diff2 <= paddleHeight / 2.0f
 					&& mBallPosition.x >= 1024.0f - 45.0f
 					&& mBallPosition.x <= 1024.0f - 40.0f
 					&& mBallVelocity.x > 0.0f)) {
-		mBallVelocity.x *= -incrementVelocity;
-		mBallVelocity.y *= incrementVelocity;
-		paddle2Velocity *= incrementVelocity;
+		if (mBallVelocity.y != 500) {
+			std::cout << mBallVelocity.y << std::endl;
+			mBallVelocity.x *= -incrementVelocity;
+			mBallVelocity.y *= incrementVelocity;
+			paddle2Velocity *= incrementVelocity;
+		} else {
+			mBallVelocity.x = -incrementVelocity;
+		}
 	}
 
 	// did player 2 hit the ball?
@@ -198,9 +203,12 @@ void Game::UpdateGame() {
 
 	// did the ball go off the screen? (if so, end game)
 	else if (mBallPosition.x <= 0.0f && scorePlayer1 >= 1) {
-// 		mBallVelocity.x /= 2.0f;
-// 		mBallVelocity.y /= 2.0f;
-// 		paddle2Velocity /= 2.0f;
+//		mBallVelocity.x /= 2.0f;
+//		mBallVelocity.y /= 2.0f;
+//		paddle2Velocity /= 2.0f;
+		mBallVelocity.x = -200.0f * 1.22;
+		mBallVelocity.y = 235.0f * 1.22;
+		paddle2Velocity = 1.00f;
 		scorePlayer2++;
 		resetBall();
 	} else if (mBallPosition.x >= (1024.0f - thickness)
@@ -235,7 +243,7 @@ void Game::GenerateOutput() {
 
 // clear back buffer
 	SDL_RenderClear(mRenderer);
-	
+
 	// Draw walls
 	SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
@@ -273,7 +281,7 @@ void Game::GenerateOutput() {
 	}
 
 	for (int i = 0; i < 2; i++) {
-		// since I can't manage to get ttf working, I'm resorting to creating the numbers using rectangles
+		// since I can't manage to get ttf working, I'm resorting to using the eight rectangle classic
 		SDL_Rect leftTop {
 				static_cast<int>(i < 1 ? 245 + i * 10 : 645 + i * 120),
 				static_cast<int>(55), thickness / 3, thickness };
