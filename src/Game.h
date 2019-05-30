@@ -16,11 +16,11 @@ struct Vector2 {
 class Game {
 public:
 	Game();
-	// initialises game
+	// Initialise game
 	bool Initialize();
-	// runs game loop until the game has finished
+	// Where game is updated
 	void RunLoop();
-	// shutdowns the game
+	// Shutdown game
 	void Shutdown();
 private:
 	void ProcessInput();
@@ -32,23 +32,23 @@ private:
 	SDL_Window* mWindow;
 	// 2D renderer
 	SDL_Renderer* mRenderer;
-	// holds number of ticks since game's start
+	// Holds number of ticks since game's start
 	Uint32 mTicksCount;
-	// is the game running
+	// To check for game exit or crash
 	bool mIsGameRunning;
 
-	// direction of paddle 1
+	// Direction of paddle 1
 	int mPaddle1Direction;
-	// position of paddle 1
+	// Position of paddle 1
 	Vector2 mPaddlePosition1;
 
-	// direction of paddle 2
+	// Direction of paddle 2
 	int mPaddleDirection2;
-	// position of paddle 2
+	// Position of paddle 2
 	Vector2 mPaddlePosition2;
 
-	// position of ball
+	// Position of ball
 	Vector2 mBallPosition;
-	// velocity of ball
+	// Velocity of ball
 	Vector2 mBallVelocity;
 };
