@@ -26,7 +26,7 @@ private:
 	void ProcessInput();
 	void UpdateGame();
 	void GenerateOutput();
-	void resetBall();
+	void ResetBall();
 
 	// SDL window
 	SDL_Window* mWindow;
