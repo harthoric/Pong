@@ -210,14 +210,14 @@ void Game::UpdateGame() {
 		mBallVelocity.y = 235.0f * 1.22;
 		paddle2Velocity = 1.00f;
 		scorePlayer2++;
-		resetBall();
+		ResetBall();
 	} else if (mBallPosition.x >= (1024.0f - thickness)
 			&& mBallVelocity.x > 0.0f && scorePlayer1 <= 9) {
 		scorePlayer1++;
-		resetBall();
+		ResetBall();
 	} else if ((scorePlayer1 < 1 && mBallPosition.x <= 0.0f)
 			|| scorePlayer1 > 9) {
-		resetBall();
+		ResetBall();
 	}
 
 	// Did the ball collide with the top wall?
@@ -232,7 +232,7 @@ void Game::UpdateGame() {
 }
 
 // Reset the ball position to centre
-void Game::resetBall() {
+void Game::ResetBall() {
 	mBallPosition.x = 1024 / 2;
 	mBallPosition.y = 1024 / 2;
 }
